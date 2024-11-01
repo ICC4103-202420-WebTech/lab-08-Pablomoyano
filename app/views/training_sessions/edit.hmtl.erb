@@ -1,0 +1,16 @@
+<h1>Edit Training Session</h1>
+<%= form_for([:training_sessions, @training_session], local: true) do |form| %>
+  <%= form.label :date %>
+  <%= form.date_field :date %>
+
+  <%= form.label :activity %>
+  <%= form.text_field :activity %>
+
+  <%= form.label :duration %>
+  <%= form.number_field :duration %>
+
+  <%= form.label :description %>
+  <%= form.text_area :description %>
+
+  <%= form.submit 'Update Training Session', class: 'btn btn-primary' %>
+<% end %>
