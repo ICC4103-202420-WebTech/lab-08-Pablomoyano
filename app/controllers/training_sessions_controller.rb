@@ -1,10 +1,10 @@
 class TrainingSessionsController < ApplicationController
     before_action :authenticate_user!
     def index
-        @training_sessions = current_user.training_sessions.order
+        @training_sessions = current_user.training_sessions.order(date: :desc)
     end
     def new
-      @training_session = current_user.training_sessions.build
+      @training_session = TrainingSession.new
     end
     def create
         @training_session = current_user.training_sessions.build(training_session_params)
@@ -14,9 +14,12 @@ class TrainingSessionsController < ApplicationController
           render :new
         end
     end
+
     def edit
-        @training_session = current_user.training_sessions.find(params[:id])
+      @training_session = current_user.training_sessions.find(params[:id])
     end
+
+    
     def update
         @training_session = current_user.training_sessions.find(params[:id])
         if @training_session.update(training_session_params)
@@ -26,9 +29,9 @@ class TrainingSessionsController < ApplicationController
         end
     end
     def destroy
-        @training_session = current_user.training_sessions.find(params[:id])
-        @training_session.destroy
-        redirect_to training_sessions_path, notice: 'Training session deleted successfully.'
+     @training_session = TrainingSession.find(params[:id])
+     @training_session.destroy
+     redirect_to training_sessions_path, notice: "Training session was successfully deleted."
     end
     private
 
